@@ -14,8 +14,8 @@ CREATE TABLE Dishes (
     CONSTRAINT FK_Dishes_Categories FOREIGN KEY (ID_Category) REFERENCES Categories(ID_Category) ON DELETE SET NULL
 );
 
--- Tabella Menues
-CREATE TABLE Menues (
+-- Tabella Menus
+CREATE TABLE Menus (
     ID_Menu INT IDENTITY(1,1) PRIMARY KEY,
     [Name] NVARCHAR(100) NOT NULL UNIQUE
 );
@@ -26,5 +26,10 @@ CREATE TABLE Dish_Menu (
     ID_Menu INT NOT NULL,
     PRIMARY KEY (ID_Dish, ID_Menu),
     CONSTRAINT FK_Dish_Menu_Dish FOREIGN KEY (ID_Dish) REFERENCES Dishes(ID_Dish) ON DELETE CASCADE,
-    CONSTRAINT FK_Dish_Menu_Menu FOREIGN KEY (ID_Menu) REFERENCES Menues(ID_Menu) ON DELETE CASCADE
+    CONSTRAINT FK_Dish_Menu_Menu FOREIGN KEY (ID_Menu) REFERENCES Menus(ID_Menu) ON DELETE CASCADE
 );
+
+DROP Table Dish_Menu
+DROP Table Menus
+DROP Table Dishes
+DROP Table Categories
