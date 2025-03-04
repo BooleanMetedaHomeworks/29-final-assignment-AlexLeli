@@ -15,32 +15,32 @@ namespace ristorante_backend.Repositories
             {
                 int id = r.GetInt32(r.GetOrdinal("ID_Dish"));
 
-                Dish p = new Dish();
+                Dish d = new Dish();
                 if (dishes.ContainsKey(id) == false)
                 {
-                    p.ID_Dish = id;
-                    p.Name = r.GetString(r.GetOrdinal("Name"));
-                    p.Description = r.GetString(r.GetOrdinal("Description"));
-                    p.Price = r.GetDecimal(r.GetOrdinal("Price"));
+                    d.ID_Dish = id;
+                    d.Name = r.GetString(r.GetOrdinal("Name"));
+                    d.Description = r.GetString(r.GetOrdinal("Description"));
+                    d.Price = r.GetDecimal(r.GetOrdinal("Price"));
                     if (r.IsDBNull(r.GetOrdinal("ID_Category")) == false)
                     {
                         int categoryId = r.GetInt32(r.GetOrdinal("ID_Category"));
                         string categoryName = r.GetString(r.GetOrdinal("CategoryName"));
                         Category c = new Category(categoryId, categoryName);
 
-                        p.ID_Category = c.ID_Category;
-                        p.Category = c;
+                        d.ID_Category = c.ID_Category;
+                        d.Category = c;
                     }
-                    dishes.Add(id, p);
+                    dishes.Add(id, d);
                 }
-                p = dishes[id];
+                d = dishes[id];
                 int menuId = r.GetInt32(r.GetOrdinal("ID_Menu"));
-                p.MenuIDs.Add(menuId);
+                d.MenuIDs.Add(menuId);
                 string menuName = r.GetString(r.GetOrdinal("MenuName"));
                 Menu m = new Menu(menuId, menuName);
 
 
-                p.Menus.Add(m);
+                d.Menus.Add(m);
             }
             catch (Exception e)
             {
@@ -113,7 +113,7 @@ namespace ristorante_backend.Repositories
 
             string query = @"SELECT d.*, c.ID_Category, c.Name AS CategoryName, m.ID_Menu, m.Name AS MenuName
 							FROM Dishes d
-						    LEFT JOIN Categories c ON d.ID_Dish = c.ID_Category
+						    LEFT JOIN Categories c ON d.ID_Category = c.ID_Category
 							LEFT JOIN Dish_Menu dm ON d.ID_Dish = dm.ID_Dish
 						    LEFT JOIN Menu m ON dm.ID_Menu = m.ID_Menu
 							WHERE d.ID_Dish = @Id";
@@ -161,7 +161,7 @@ namespace ristorante_backend.Repositories
         {
             List<Dish> allNamedDishes = new List<Dish>();
             Dictionary<int, Dish> dishes = new Dictionary<int, Dish>();
-            string query = "SELECT * FROM Dishes WHERE Name LIKE @Name";
+            string query = @"SELECT * FROM Dishes WHERE Name LIKE @Name";
             using (var connection = new SqlConnection(CONNECTION_STRING))
             {
                 await connection.OpenAsync();
@@ -227,7 +227,7 @@ namespace ristorante_backend.Repositories
                             }
                             catch (Exception e)
                             {
-                                Console.WriteLine($"{e.Message} - {e.InnerException?.Message}")
+                                Console.WriteLine($"{e.Message} - {e.InnerException?.Message}");
                                 await transaction.RollbackAsync();
                                 throw new Exception(e.Message, e.InnerException);
                             }
@@ -238,10 +238,10 @@ namespace ristorante_backend.Repositories
             }
             catch (Exception e)
             {
-                Console.WriteLine($"{e.Message} - {e.InnerException?.Message}")
+                Console.WriteLine($"{e.Message} - {e.InnerException?.Message}");
             }            
 
-            return default;
+            return (default, default);
                          
         }
 
@@ -259,55 +259,55 @@ namespace ristorante_backend.Repositories
 
 
 
+        // VERSIONE 0 
+
+        //public async Task<int> UpdateDish(int id, Dish dish)
+        //{
+        //    string query = "UPDATE Dishes SET Name = @Name, Description = @Description, Price = @Price WHERE ID_Dish = @Id";
+
+        //    try
+        //    {
+        //        using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+        //        {
+        //            await connection.OpenAsync();
+        //            using (SqlCommand command = connection.CreateCommand())
+        //            {
+        //                using (SqlTransaction transaction = (SqlTransaction)await connection.BeginTransactionAsync())
+        //                {
+        //                    command.Transaction = transaction;
+
+        //                    try
+        //                    {
+        //                        command.CommandText = query;
+        //                        command.Parameters.AddWithValue("@Id", id);
+        //                        command.Parameters.AddWithValue("@Name", dish.Name);
+        //                        command.Parameters.AddWithValue("@Description", dish.Description);
+        //                        command.Parameters.AddWithValue("@Price", dish.Price);
+        //                        int rowsAffected = await command.ExecuteNonQueryAsync();
 
 
-        public async Task<int> UpdateDish(int id, Dish dish)
-        {
-            string query = "UPDATE Dishes SET Name = @Name, Description = @Description, Price = @Price WHERE ID_Dish = @Id";
 
-            try
-            {
-                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
-                {
-                    await connection.OpenAsync();
-                    using (SqlCommand command = connection.CreateCommand())
-                    {
-                        using (SqlTransaction transaction = (SqlTransaction)await connection.BeginTransactionAsync())
-                        {
-                            command.Transaction = transaction;
+        //                        return rowsAffected;
+        //                    }
 
-                            try
-                            {
-                                command.CommandText = query;
-                                command.Parameters.AddWithValue("@Id", id);
-                                command.Parameters.AddWithValue("@Name", dish.Name);
-                                command.Parameters.AddWithValue("@Description", dish.Description);
-                                command.Parameters.AddWithValue("@Price", dish.Price);
-                                int rowsAffected = await command.ExecuteNonQueryAsync();
+        //                    catch (Exception e)
+        //                    {
+        //                        Console.WriteLine($"{e.Message} - {e.InnerException?.Message}");
+        //                        await transaction.RollbackAsync();
+        //                        throw new Exception(e.Message, e.InnerException);
+        //                    }
+        //                }
+        //            }
 
+        //        }
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        Console.WriteLine($"{e.Message} - {e.InnerException?.Message}");
+        //    }
 
-
-                                return rowsAffected;
-                            }
-
-                            catch (Exception e)
-                            {
-                                Console.WriteLine($"{e.Message} - {e.InnerException?.Message}");
-                                await transaction.RollbackAsync();
-                                throw new Exception(e.Message, e.InnerException);
-                            }
-                        }
-                    }
-
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"{e.Message} - {e.InnerException?.Message}");
-            }
-
-            return default;
-        }
+        //    return default;
+        //}
 
 
 
@@ -342,7 +342,7 @@ namespace ristorante_backend.Repositories
                             }
                             catch (Exception e)
                             {
-                                Console.WriteLine($"{e.Message} - {e.InnerException?.Message}")
+                                Console.WriteLine($"{e.Message} - {e.InnerException?.Message}");
                                 await transaction.RollbackAsync();
                                 throw new Exception(e.Message, e.InnerException);
                             }                        
@@ -352,7 +352,7 @@ namespace ristorante_backend.Repositories
             }
             catch (Exception e)
             {
-                Console.WriteLine($"{e.Message} - {e.InnerException?.Message}")
+                Console.WriteLine($"{e.Message} - {e.InnerException?.Message}");
             }
 
             return default;
@@ -384,28 +384,118 @@ namespace ristorante_backend.Repositories
         }
 
 
-        private async Task<int> UpdateDishMenu(int dishId, List<int> menuIds, SqlConnection connection)
+
+
+
+
+
+        public async Task<(int affectedRows,int addedMenuIds,int deletedMenuIds )> UpdateDish2(int id, Dish dish)
         {
+            string query = "UPDATE Dishes SET Name = @Name, Description = @Description, Price = @Price WHERE ID_Dish = @Id";
 
-            int affectedRows = 0;
-
-            foreach (int menuId in menuIds)
+            try
             {
-                string query = @"UPDATE Dish_Menu SET ID_Menu = @ID_Menu WHERE ID_Dish =
-                                        ;
-                using (SqlCommand cmd = new SqlCommand(query, connection))
+                using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
                 {
-                    cmd.Parameters.AddWithValue("@ID_Dish", dishId));
-                    cmd.Parameters.Add(new SqlParameter("@ID_Menu", menuId));
-                affectedRows = await cmd.ExecuteNonQueryAsync();
+                    await connection.OpenAsync();
+                    using (SqlTransaction transaction = (SqlTransaction)await connection.BeginTransactionAsync())
+                    {
+                        try
+                        {
+                            int rowsAffected = 0;
+
+                            
+                            Dictionary<int, Dish> dishes = new Dictionary<int, Dish>();
+                            using (SqlCommand cmd = new SqlCommand("SELECT d.*, m.ID_Menu FROM Dishes d LEFT JOIN Dish_Menu dm ON d.ID_Dish = dm.ID_Dish LEFT JOIN Menu m ON dm.ID_Menu = m.ID_Menu WHERE d.ID_Dish = @Id", connection, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("@Id", id);
+                                using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
+                                {
+                                    while (await reader.ReadAsync())
+                                    {
+                                        ReadDish(reader, dishes);
+                                    }
+                                }
+                            }
+
+                            Dish toUpdateDish = dishes.Values.FirstOrDefault();
+                            if (toUpdateDish == null)
+                            {
+                                return default;
+                            }
+                          
+                            using (SqlCommand command = new SqlCommand(query, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@Id", id);
+                                command.Parameters.AddWithValue("@Name", dish.Name);
+                                command.Parameters.AddWithValue("@Description", dish.Description ?? (object)DBNull.Value);
+                                command.Parameters.AddWithValue("@Price", dish.Price);
+                                rowsAffected = await command.ExecuteNonQueryAsync();
+                            }
+
+                            // 3️⃣ Gestisci la tabella Dish_Menu
+                           (int addedMenuIds, int deletedMenuIds) tuplaRowsBridgeTable = await UpdateDishMenus(id, toUpdateDish.MenuIDs, dish.MenuIDs, connection, transaction);
+
+                            // 4️⃣ Commit della transazione
+                            await transaction.CommitAsync();
+                            return (rowsAffected, tuplaRowsBridgeTable.addedMenuIds , tuplaRowsBridgeTable.deletedMenuIds);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine($"{e.Message} - {e.InnerException?.Message}");
+                            await transaction.RollbackAsync();
+                            throw;
+                        }
+                    }
+                }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine($"{e.Message} - {e.InnerException?.Message}");
+            }
+
+            return (default, default, default);
         }
-            return affectedRows;
+
+
+        private async Task<(int addedRows,int deletedRows)> UpdateDishMenus(int dishId, List<int> toUpdateMenuIds, List<int> newMenuIds, SqlConnection connection, SqlTransaction transaction)
+        {
+            int updatedRows = 0;
+            int deletedRows = 0;
+            List<int> menusToRemove = toUpdateMenuIds.Except(newMenuIds).ToList();
+            if (menusToRemove.Any())
+            {
+                string deleteQuery = "DELETE FROM Dish_Menu WHERE ID_Dish = @ID_Dish AND ID_Menu = @ID_Menu";
+
+                foreach (int menuId in menusToRemove)
+                {
+                    using (SqlCommand command = new SqlCommand(deleteQuery, connection, transaction))
+                    {
+                        command.Parameters.AddWithValue("@ID_Dish", dishId);
+                        command.Parameters.AddWithValue("@ID_Menu", menuId);
+                        deletedRows += await command.ExecuteNonQueryAsync();
+                    }
+                }
+
+            }
+
+
+            List<int> menusToAdd = newMenuIds.Except(toUpdateMenuIds).ToList();
+            foreach (int menuId in menusToAdd)
+            {
+                string insertQuery = "INSERT INTO Dish_Menu (ID_Dish, ID_Menu) VALUES (@ID_Dish, @ID_Menu)";
+                using (SqlCommand command = new SqlCommand(insertQuery, connection, transaction))
+                {
+                    command.Parameters.AddWithValue("@ID_Dish", dishId);
+                    command.Parameters.AddWithValue("@ID_Menu", menuId);
+                    updatedRows += await command.ExecuteNonQueryAsync();
+                }
+            }
+
+            return (updatedRows, deletedRows);
         }
 
-
-
-}       
+    }       
 }
 
 
