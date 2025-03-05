@@ -433,10 +433,10 @@ namespace ristorante_backend.Repositories
                                 rowsAffected = await command.ExecuteNonQueryAsync();
                             }
 
-                            // 3️⃣ Gestisci la tabella Dish_Menu
+                            
                            (int addedMenuIds, int deletedMenuIds) tuplaRowsBridgeTable = await UpdateDishMenus(id, toUpdateDish.MenuIDs, dish.MenuIDs, connection, transaction);
 
-                            // 4️⃣ Commit della transazione
+
                             await transaction.CommitAsync();
                             return (rowsAffected, tuplaRowsBridgeTable.addedMenuIds , tuplaRowsBridgeTable.deletedMenuIds);
                         }
