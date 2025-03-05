@@ -406,10 +406,10 @@ namespace ristorante_backend.Repositories
 
                             
                             Dictionary<int, Dish> dishes = new Dictionary<int, Dish>();
-                            using (SqlCommand cmd = new SqlCommand("SELECT d.*, m.ID_Menu FROM Dishes d LEFT JOIN Dish_Menu dm ON d.ID_Dish = dm.ID_Dish LEFT JOIN Menu m ON dm.ID_Menu = m.ID_Menu WHERE d.ID_Dish = @Id", connection, transaction))
+                            using (SqlCommand readCommand = new SqlCommand("SELECT d.*, m.ID_Menu FROM Dishes d LEFT JOIN Dish_Menu dm ON d.ID_Dish = dm.ID_Dish LEFT JOIN Menu m ON dm.ID_Menu = m.ID_Menu WHERE d.ID_Dish = @Id", connection, transaction))
                             {
-                                cmd.Parameters.AddWithValue("@Id", id);
-                                using (SqlDataReader reader = await cmd.ExecuteReaderAsync())
+                                readCommand.Parameters.AddWithValue("@Id", id);
+                                using (SqlDataReader reader = await readCommand.ExecuteReaderAsync())
                                 {
                                     while (await reader.ReadAsync())
                                     {
@@ -426,6 +426,7 @@ namespace ristorante_backend.Repositories
                           
                             using (SqlCommand command = new SqlCommand(query, connection, transaction))
                             {
+                                
                                 command.Parameters.AddWithValue("@Id", id);
                                 command.Parameters.AddWithValue("@Name", dish.Name);
                                 command.Parameters.AddWithValue("@Description", dish.Description ?? (object)DBNull.Value);
@@ -438,6 +439,8 @@ namespace ristorante_backend.Repositories
 
 
                             await transaction.CommitAsync();
+
+                            
                             return (rowsAffected, tuplaRowsBridgeTable.addedMenuIds , tuplaRowsBridgeTable.deletedMenuIds);
                         }
                         catch (Exception e)
@@ -446,6 +449,8 @@ namespace ristorante_backend.Repositories
                             await transaction.RollbackAsync();
                             throw;
                         }
+
+                        
                     }
                 }
             }
@@ -483,6 +488,7 @@ namespace ristorante_backend.Repositories
             List<int> menusToAdd = newMenuIds.Except(toUpdateMenuIds).ToList();
             foreach (int menuId in menusToAdd)
             {
+                
                 string insertQuery = "INSERT INTO Dish_Menu (ID_Dish, ID_Menu) VALUES (@ID_Dish, @ID_Menu)";
                 using (SqlCommand command = new SqlCommand(insertQuery, connection, transaction))
                 {
@@ -491,6 +497,8 @@ namespace ristorante_backend.Repositories
                     updatedRows += await command.ExecuteNonQueryAsync();
                 }
             }
+
+            
 
             return (updatedRows, deletedRows);
         }
