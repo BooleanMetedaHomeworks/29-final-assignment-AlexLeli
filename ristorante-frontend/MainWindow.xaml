@@ -5,8 +5,308 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ristorante_frontend"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="500" Width="900"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="{StaticResource BackgroundBrush}">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid Background="{StaticResource SecondaryBrush}"
+              Grid.ColumnSpan="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="MyRestaurantApp"
+                       Foreground="White"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="3"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontFamily="Fonts/#Dosis"
+                       FontSize="15"
+                       FontWeight="Bold"/>
+
+            <TextBlock Text="Menu"
+                       Foreground ="White"
+                       Grid.Column="3"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontFamily="Fonts/#Dosis"
+                       FontSize="10"/>
+
+            <TextBlock Text="Website"
+                       Foreground="White"
+                       Grid.Column="4"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontFamily="Fonts/#Dosis"
+                       FontSize="10"/>
+
+            <Button Content="Login"
+                    Grid.Column="12"
+                    Grid.ColumnSpan="13"
+                    Foreground="White"
+                    FontSize="15"
+                    FontWeight="Medium">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                        <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+                        <Setter Property="Cursor" Value="Wait"/>
+                        <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+                        <Setter Property="BorderThickness" Value="2"/>
+
+
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource AccentBrush}"></Setter>
+                                <Setter Property="BorderBrush" Value="Black"></Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Width="90" Height="25"
+                                CornerRadius="12"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                Background="{TemplateBinding Background}">
+
+                            <ContentPresenter VerticalAlignment="Center"
+                                              HorizontalAlignment="Center"/>
+
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+        </Grid>
+
+
+        
+        <StackPanel Grid.Row="1"
+                    VerticalAlignment="Center"
+                    Margin="30">
+
+            <StackPanel>
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,0,0,20">
+                <Image Width="50" Height="50"
+                    Source="Images/logo.png"
+                       RenderOptions.BitmapScalingMode="Fant"/>
+            <TextBlock Text="MyRestaurantApp"
+                    Foreground="{StaticResource AccentBrush}"
+                    FontSize="35"
+                    FontFamily="Fonts/#Dosis"
+                    FontWeight="Bold"
+                    VerticalAlignment="Center"
+                       Margin="0,0,0,0"/>
+            </StackPanel>
+
+                <TextBlock Text="Choose The Best"
+                Foreground ="{StaticResource SecondaryBrush}"
+                FontSize="25"
+                FontFamily="Fonts/#Dosis"
+                FontWeight="Medium"/>
+
+                <TextBlock Text="For your"
+               Foreground ="{StaticResource SecondaryBrush}"
+               FontSize="25"
+               FontFamily="Fonts/#Dosis"
+               FontWeight="Medium"/>
+
+                <TextBlock Text="Culinary Experience"
+               Foreground ="{StaticResource SecondaryBrush}"
+               FontSize="25"
+               FontFamily="Fonts/#Dosis"
+               FontWeight="Medium"/>
+
+
+                <TextBlock Text="CiaoCiaoCiaoCiaoCiaoCiaoCiaoCiaoCiaoCiaoCiaoCiaoCiaoCiaoCiaoCiaoCiaoCiao"
+               Foreground ="{StaticResource SecondaryBrush}"
+               FontSize="15"
+               FontFamily="Fonts/#Dosis"
+               FontWeight="Medium"
+               TextWrapping="Wrap"
+               Margin="0,15,0,15"/>
+
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,15,0,0"
+                        HorizontalAlignment="Center">
+                <Button Content="Start"
+                        Foreground="White"
+                        FontSize="15"
+                        FontWeight="Medium"
+                        Margin="0,0,15,0">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                            <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+                            <Setter Property="Cursor" Value="Wait"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+                            <Setter Property="BorderThickness" Value="2"/>
+
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource PrimaryBrush}"></Setter>
+                                    <Setter Property="BorderBrush" Value="Black"></Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="100" Height="25"
+                                    CornerRadius="15"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    Background="{TemplateBinding Background}">
+
+                                <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+
+
+                <Button Content="Register"
+                        Foreground="White"
+                        FontSize="15"
+                        FontWeight="Medium">        
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
+                            <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+                            <Setter Property="Cursor" Value="Wait"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+                            <Setter Property="BorderThickness" Value="2"/>
+
+
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{StaticResource AccentBrush}"></Setter>
+                                    <Setter Property="BorderBrush" Value="Black"></Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Width="100" Height="25"
+                    CornerRadius="15"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    Background="{TemplateBinding Background}">
+
+                                <ContentPresenter VerticalAlignment="Center"
+                                  HorizontalAlignment="Center"/>
+
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+            
+        </StackPanel>
+
+        <Grid Grid.Column="1"
+              Grid.RowSpan="2"
+              Margin="160, -265, -610,85"
+              Panel.ZIndex="-1">
+
+            <Grid.RenderTransform>
+                <RotateTransform Angle="45"/>
+            </Grid.RenderTransform>
+
+            <StackPanel Orientation="Horizontal"
+                        Margin="-450,250,-255,-200">
+
+                <StackPanel>
+                    <Border Width="700"
+                            Height="35"
+                            Background="{StaticResource PrimaryBrush}"
+                            Margin="150,0,0,0"
+                            CornerRadius="20">
+                        
+                    </Border>
+
+                    <Border Width="700"
+                            Height="35"
+                            Background="{StaticResource AccentBrush}"
+                            Margin="0,15,0,0"
+                            CornerRadius="20">
+
+                    </Border>
+
+                    <Border Width="700"
+                            Height="35"
+                            Background="Bisque"
+                            Margin="75,15,0,0"
+                            CornerRadius="20">
+
+                    </Border>
+                </StackPanel>
+
+                <StackPanel>
+                    <Border Width="700"
+            Height="35"
+            Background="Bisque"
+            Margin="150,0,0,0"
+            CornerRadius="20">
+
+                    </Border>
+
+                    <Border Width="700"
+            Height="35"
+            Background="{StaticResource AccentBrush}"
+            Margin="0,15,0,0"
+            CornerRadius="20">
+
+                    </Border>
+
+                    <Border Width="700"
+            Height="35"
+            Background="Bisque"
+            Margin="75,15,0,0"
+            CornerRadius="20">
+
+                    </Border>
+                </StackPanel>
+
+            </StackPanel>
+        </Grid>
+
+            
     </Grid>
 </Window>
