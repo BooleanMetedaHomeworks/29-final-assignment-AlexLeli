@@ -4,7 +4,7 @@ using ristorante_backend.Models;
 
 namespace ristorante_backend.Repositories
 {
-    public class PostRepository
+    public class DishRepository
     {
         private const string CONNECTION_STRING = "Data Source=localhost;Initial Catalog=GestionaleRistorante;Integrated Security=True;Trust Server Certificate=True";
 
@@ -65,7 +65,7 @@ namespace ristorante_backend.Repositories
 							FROM Dishes d
 						    LEFT JOIN Categories c ON d.ID_Category = c.ID_Category
 							LEFT JOIN Dish_Menu dm ON d.ID_Dish = dm.ID_Dish
-						    LEFT JOIN Menu m ON dm.ID_Menu = m.ID_Menu";
+						    LEFT JOIN Menus m ON dm.ID_Menu = m.ID_Menu";
 
             try
             {
@@ -115,7 +115,7 @@ namespace ristorante_backend.Repositories
 							FROM Dishes d
 						    LEFT JOIN Categories c ON d.ID_Category = c.ID_Category
 							LEFT JOIN Dish_Menu dm ON d.ID_Dish = dm.ID_Dish
-						    LEFT JOIN Menu m ON dm.ID_Menu = m.ID_Menu
+						    LEFT JOIN Menus m ON dm.ID_Menu = m.ID_Menu
 							WHERE d.ID_Dish = @Id";
 
             try
