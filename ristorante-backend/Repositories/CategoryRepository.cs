@@ -5,14 +5,8 @@ namespace ristorante_backend.Repositories
 {
     public class CategoryRepository
     {
-        private const string CONNECTION_STRING = "Data Source=localhost;Initial Catalog=BlogMeteda;Integrated Security=True;Trust Server Certificate=True";
-        //private PostRepository PostRepository { get; set; }
-
-        //public CategoryRepository(PostRepository postRepository)
-        //{
-        //    PostRepository = postRepository;
-        //}
-
+        private const string CONNECTION_STRING = "Data Source=localhost;Initial Catalog=GestionaleRistorante;Integrated Security=True;Trust Server Certificate=True";
+       
         public async Task<List<Category>> GetAllCategories()
         {
             var query = "SELECT * FROM Categories";
@@ -86,8 +80,8 @@ namespace ristorante_backend.Repositories
             using var conn = new SqlConnection(CONNECTION_STRING);
             await conn.OpenAsync();
 
-            var query = $"INSERT INTO Categories (Name) VALUES (@Name);" +
-                $"SELECT SCOPE_IDENTITY();";
+            var query = @"INSERT INTO Categories (Name) VALUES (@Name) 
+                          SELECT SCOPE_IDENTITY();";
 
             using (SqlCommand cmd = new SqlCommand(query, conn))
             {
@@ -106,7 +100,7 @@ namespace ristorante_backend.Repositories
 
             using (SqlCommand cmd = new SqlCommand(query, conn))
             {
-                cmd.Parameters.Add(new SqlParameter("@ID_Categoria", id));
+                cmd.Parameters.Add(new SqlParameter("@ID_Category", id));
                 cmd.Parameters.Add(new SqlParameter("@Name", category.Name));
 
                 return await cmd.ExecuteNonQueryAsync();
@@ -116,12 +110,12 @@ namespace ristorante_backend.Repositories
         public async Task<int> DeleteCategory(int id)
         {
 
-            string query = "DELETE FROM Categories WHERE Id = @id";
+            string query = "DELETE FROM Categories WHERE ID_Category = @ID_Category";
             using var conn = new SqlConnection(CONNECTION_STRING);
             await conn.OpenAsync();
             using (SqlCommand cmd = new SqlCommand(query, conn))
             {
-                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@ID_Category", id);
                 return await cmd.ExecuteNonQueryAsync();
             }
         }

@@ -6,10 +6,9 @@ namespace ristorante_backend.Repositories
     public class MenuRepository
     {
 
-            private const string CONNECTION_STRING = "Data Source=localhost;Initial Catalog=BlogMeteda;Integrated Security=True;Trust Server Certificate=True";
-            
+        private const string CONNECTION_STRING = "Data Source=localhost;Initial Catalog=GestionaleRistorante;Integrated Security=True;Trust Server Certificate=True";
 
-            public async Task<List<Menu>> GetAllMenus()
+        public async Task<List<Menu>> GetAllMenus()
             {
                 string query = "SELECT * FROM Menus";
                 using SqlConnection conn = new SqlConnection(CONNECTION_STRING);

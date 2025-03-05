@@ -65,9 +65,10 @@ namespace ristorante_backend.Controllers
                     return BadRequest(ModelState.Values);
                 }
 
-                
+                (int dishId, int affectedRowsBridgeTable) createdRows = await _dishRepo.CreateDish(newDish);
 
-                return Ok(await _dishRepo.CreateDish(newDish));
+                return Ok(@$"E' stato creato n°{createdRows.dishId} piatto
+                             Sono stati aggiunti {createdRows.affectedRowsBridgeTable} riferimenti");
             }
             catch (Exception e)
             {
