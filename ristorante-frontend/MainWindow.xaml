@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:ristorante_frontend"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="900"
+         Background="{StaticResource BackgroundBrush}"
         WindowStyle="None"
         ResizeMode="NoResize"
-        Background="{StaticResource BackgroundBrush}">
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
@@ -48,7 +49,7 @@
                        VerticalAlignment="Center"
                        FontFamily="Fonts/#Dosis"
                        FontSize="15"
-                       FontWeight="Bold"/>
+                       FontWeight="Heavy"/>
 
             <TextBlock Text="Menu"
                        Foreground ="White"
@@ -69,7 +70,9 @@
             <Button Content="Login"
                     Grid.Column="12"
                     Grid.ColumnSpan="13"
-                    Foreground="White"
+                    Style="{StaticResource SmoothButtonStyle}"
+                    Click="OnLoginBtnClick">
+                <!--Foreground="White"
                     FontSize="15"
                     FontWeight="Medium">
                 <Button.Style>
@@ -102,7 +105,7 @@
 
                         </Border>
                     </ControlTemplate>
-                </Button.Template>
+                </Button.Template>-->
             </Button>
 
         </Grid>
@@ -161,10 +164,13 @@
                         Margin="0,15,0,0"
                         HorizontalAlignment="Center">
                 <Button Content="Start"
-                        Foreground="White"
+                        Margin="0,0,15,0"
+                        Style="{StaticResource SmoothButtonStyle}"
+                        Click="OnUserBtnClick">
+                        <!--Foreground="White"
                         FontSize="15"
                         FontWeight="Medium"
-                        Margin="0,0,15,0">
+                        >
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="TextElement.FontFamily" Value="Fonts/#Dosis"/>
@@ -195,13 +201,15 @@
 
                             </Border>
                         </ControlTemplate>
-                    </Button.Template>
+                    </Button.Template>-->
                 </Button>
 
 
 
                 <Button Content="Register"
-                        Foreground="White"
+                        Style="{StaticResource SmoothButtonStyle}"
+                        Click="OnRegisterBtnClick">
+                    <!--Foreground="White"
                         FontSize="15"
                         FontWeight="Medium">        
                     <Button.Style>
@@ -234,7 +242,7 @@
 
                             </Border>
                         </ControlTemplate>
-                    </Button.Template>
+                    </Button.Template>-->
                 </Button>
             </StackPanel>
             
@@ -307,6 +315,10 @@
             </StackPanel>
         </Grid>
 
-            
+        <Frame x:Name="MainFrame"
+               NavigationUIVisibility="Hidden"
+               Grid.RowSpan="2"
+               Grid.ColumnSpan="2"/>
     </Grid>
+    
 </Window>

@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace ristorante_frontend
 {
@@ -10,6 +12,21 @@ namespace ristorante_frontend
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void OnLoginBtnClick(object sender, RoutedEventArgs e)
+        {
+            this.MainFrame.NavigationService.Navigate(new Uri("Views/Login.xaml", UriKind.Relative));
+        }
+
+        private void OnRegisterBtnClick(object sender, RoutedEventArgs e)
+        {
+            this.MainFrame.NavigationService.Navigate(new Uri("Views/Register.xaml", UriKind.Relative));
+        }
+
+        private void OnUserBtnClick(object sender, RoutedEventArgs e)
+        {
+            this.MainFrame.NavigationService.Navigate(new Uri("Views/User.xaml", UriKind.Relative));
         }
     }
 }
