@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ristorante_frontend.Services;
 
 namespace ristorante_frontend.Views
 {
@@ -27,43 +28,51 @@ namespace ristorante_frontend.Views
 
 
 
-            // Gestione dell'evento GotFocus per il campo Username
-            private void UsernameTextBox_GotFocus(object sender, RoutedEventArgs e)
-            {
-                // Nascondi il placeholder quando l'utente clicca nel TextBox
-                if (string.IsNullOrWhiteSpace(UsernameTextBox.Text))
-                    UsernamePlaceholder.Visibility = Visibility.Collapsed;
-            }
+        // Gestione dell'evento GotFocus per il campo Username
+        private void UsernameTextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            // Nascondi il placeholder quando l'utente clicca nel TextBox
+            if (string.IsNullOrWhiteSpace(UsernameTextBox.Text))
+                UsernamePlaceholder.Visibility = Visibility.Collapsed;
+        }
 
-            // Gestione dell'evento LostFocus per il campo Username
-            private void UsernameTextBox_LostFocus(object sender, RoutedEventArgs e)
-            {
-                // Mostra il placeholder se il TextBox è vuoto
-                if (string.IsNullOrWhiteSpace(UsernameTextBox.Text))
-                    UsernamePlaceholder.Visibility = Visibility.Visible;
-            }
+        // Gestione dell'evento LostFocus per il campo Username
+        private void UsernameTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            // Mostra il placeholder se il TextBox è vuoto
+            if (string.IsNullOrWhiteSpace(UsernameTextBox.Text))
+                UsernamePlaceholder.Visibility = Visibility.Visible;
+        }
 
-            // Gestione dell'evento GotFocus per il campo Password
-            private void PasswordBox_GotFocus(object sender, RoutedEventArgs e)
-            {
-                // Nascondi il placeholder quando l'utente clicca nel PasswordBox
-                if (string.IsNullOrWhiteSpace(PasswordBox.Password))
-                    PasswordPlaceholder.Visibility = Visibility.Collapsed;
-            }
+        // Gestione dell'evento GotFocus per il campo Password
+        private void PasswordBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            // Nascondi il placeholder quando l'utente clicca nel PasswordBox
+            if (string.IsNullOrWhiteSpace(PasswordBox.Password))
+                PasswordPlaceholder.Visibility = Visibility.Collapsed;
+        }
 
-            // Gestione dell'evento LostFocus per il campo Password
-            private void PasswordBox_LostFocus(object sender, RoutedEventArgs e)
-            {
-                // Mostra il placeholder se il PasswordBox è vuoto
-                if (string.IsNullOrWhiteSpace(PasswordBox.Password))
-                    PasswordPlaceholder.Visibility = Visibility.Visible;
-            }
+        // Gestione dell'evento LostFocus per il campo Password
+        private void PasswordBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            // Mostra il placeholder se il PasswordBox è vuoto
+            if (string.IsNullOrWhiteSpace(PasswordBox.Password))
+                PasswordPlaceholder.Visibility = Visibility.Visible;
+        }
 
-            // Gestione del click sul bottone Login
-            private void LoginButton_Click(object sender, RoutedEventArgs e)
+
+            private async void LoginButton_Click(object sender, RoutedEventArgs e)
             {
-                // Aggiungi qui la logica per il login
+            ApiService.Email = this.UsernameTextBox.Text;
+            ApiService.Password = this.PasswordBox.Password;
+            var tokenApiResult = await ApiService.GetJwtToken();
+            if (tokenApiResult.Data == null)
+            {
+                MessageBox.Show($"Errore login! {tokenApiResult.ErrorMessage}");
+                return;
             }
+            this.NavigationService.Navigate(new Uri("Views/UserPage.xaml", UriKind.Relative));
+        }
 
             // Gestione del click sul link per andare alla pagina di registrazione
             private void NavigateToRegisterPage(object sender, RoutedEventArgs e)

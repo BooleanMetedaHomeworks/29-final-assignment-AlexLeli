@@ -37,20 +37,42 @@
 
 
         <!-- Form -->
-        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-20,0,0">
+        <StackPanel Grid.Row="1"
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center" 
+                    Margin="0,-20,0,0">
             <!-- Username TextBox -->
-            <Grid Width="250" Height="35" Margin="10">
+            <Grid Width="250" 
+                  Height="35" 
+                  Margin="10">
+
+
                 <Border Background="White" BorderBrush="Transparent" BorderThickness="2" CornerRadius="15">
-                    <TextBox Name="UsernameTextBox" Background="Transparent" FontSize="14" GotFocus="UsernameTextBox_GotFocus" LostFocus="UsernameTextBox_LostFocus" />
+
+                    <TextBox Name="UsernameTextBox"
+                             Background="Transparent" 
+                             FontSize="14" 
+                             GotFocus="UsernameTextBox_GotFocus" 
+                             LostFocus="UsernameTextBox_LostFocus" 
+                              VerticalAlignment="Center"  BorderBrush="Transparent" Margin="10,0,10,0"/>
                 </Border>
+
                 <!-- Placeholder text for Username -->
-                <TextBlock Name="UsernamePlaceholder" Text="Username" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" IsHitTestVisible="False"/>
+                <TextBlock Name="UsernamePlaceholder"
+                               Text="Username" Foreground="Gray" 
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left" 
+                               Margin="10,0,0,0" 
+                               IsHitTestVisible="False"/>
+
+                   
+                
             </Grid>
 
             <!-- Password TextBox -->
             <Grid Width="250" Height="35" Margin="5">
                 <Border Background="White" BorderBrush="Transparent" BorderThickness="2" CornerRadius="15">
-                    <PasswordBox Name="PasswordBox" Background="Transparent" FontSize="14" GotFocus="PasswordBox_GotFocus" LostFocus="PasswordBox_LostFocus"/>
+                    <PasswordBox Name="PasswordBox" Background="Transparent" FontSize="14" GotFocus="PasswordBox_GotFocus" LostFocus="PasswordBox_LostFocus"  VerticalAlignment="Center"  BorderBrush="Transparent" Margin="10,0,10,0"/>
                 </Border>
                 <!-- Placeholder text for Password -->
                 <TextBlock Name="PasswordPlaceholder" Text="Password" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" IsHitTestVisible="False" />

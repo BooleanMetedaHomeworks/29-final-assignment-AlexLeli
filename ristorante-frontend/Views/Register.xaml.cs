@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Text.RegularExpressions;
+using ristorante_frontend.Services;
+using ristorante_frontend.Models;
 
 namespace ristorante_frontend.Views
 {
@@ -16,7 +18,7 @@ namespace ristorante_frontend.Views
         }
 
         // Metodo per il click del pulsante di registrazione
-        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        private async void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
             // Verifica che tutti i campi siano compilati
             if (string.IsNullOrWhiteSpace(EmailTextBox.Text) ||
@@ -41,17 +43,28 @@ namespace ristorante_frontend.Views
                 return;
             }
 
-            // Logica di registrazione (salvataggio nel database o altro)
-            // Qui aggiungeresti il codice per registrare l'utente (ad esempio, nel database)
 
-            // Simuliamo una registrazione riuscita
+            ApiService.Email = this.EmailTextBox.Text;
+            ApiService.Password = this.PasswordBox.Password;
+            
+            var registerApiResult = await ApiService.Register();
+            if (registerApiResult.Data == false)
+            {
+                MessageBox.Show($"Errore registrazione! {registerApiResult.ErrorMessage}");
+                return;
+            }
+            else
+            {
+                MessageBox.Show($"Registrazione avvenuta con successo!");
+            }
+
             MessageBox.Show("Registrazione completata con successo!", "Successo", MessageBoxButton.OK, MessageBoxImage.Information);
 
             // Dopo la registrazione, naviga alla pagina di login
             this.NavigationService.Navigate(new Uri("Views/Login.xaml", UriKind.Relative));
         }
 
-        // Metodo per validare l'email (utilizza una regex)
+        
         private bool IsValidEmail(string email)
         {
             try
@@ -65,47 +78,56 @@ namespace ristorante_frontend.Views
             }
         }
 
-        // Eventi di gestione focus per il controllo TextBox (per placeholder)
+
         private void EmailTextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (EmailTextBox.Text == "Email")
-                EmailTextBox.Text = "";
+            if (string.IsNullOrWhiteSpace(EmailTextBox.Text))
+                EmailPlaceholder.Visibility = Visibility.Collapsed;
         }
 
         private void EmailTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(EmailTextBox.Text))
-                EmailTextBox.Text = "Email";
+                EmailPlaceholder.Visibility = Visibility.Visible;
         }
 
         private void PasswordBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (PasswordBox.Password == "Password")
-                PasswordBox.Password = "";
+            
+            if (string.IsNullOrWhiteSpace(PasswordBox.Password))
+                PasswordPlaceholder.Visibility = Visibility.Collapsed;
         }
 
         private void PasswordBox_LostFocus(object sender, RoutedEventArgs e)
         {
+            
             if (string.IsNullOrWhiteSpace(PasswordBox.Password))
-                PasswordBox.Password = "Password";
+                PasswordPlaceholder.Visibility = Visibility.Visible;
         }
 
         private void ConfirmPasswordBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (ConfirmPasswordBox.Password == "Confirm Password")
-                ConfirmPasswordBox.Password = "";
+            
+            if (string.IsNullOrWhiteSpace(ConfirmPasswordBox.Password))
+                ConfirmPasswordPlaceholder.Visibility = Visibility.Collapsed;
         }
 
         private void ConfirmPasswordBox_LostFocus(object sender, RoutedEventArgs e)
         {
+            
             if (string.IsNullOrWhiteSpace(ConfirmPasswordBox.Password))
-                ConfirmPasswordBox.Password = "Confirm Password";
+                ConfirmPasswordPlaceholder.Visibility = Visibility.Visible;
         }
 
-        // Navigazione alla pagina di login
+        
         private void NavigateToLoginPage(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new Uri("Views/Login.xaml", UriKind.Relative));
+        }
+
+        private void EmailTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

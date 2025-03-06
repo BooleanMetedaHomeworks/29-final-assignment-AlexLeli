@@ -1,5 +1,11 @@
 
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using ristorante_backend.Models;
 using ristorante_backend.Repositories;
+using ristorante_backend.Services;
 
 namespace ristorante_backend
 {
@@ -10,9 +16,7 @@ namespace ristorante_backend
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddSingleton<DishRepository>();
-            builder.Services.AddSingleton<CategoryRepository>();
-            builder.Services.AddSingleton<MenuRepository>();
+
 
 
 
@@ -20,6 +24,46 @@ namespace ristorante_backend
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+
+            builder.Services.AddSingleton<DishRepository>();
+            builder.Services.AddSingleton<CategoryRepository>();
+            builder.Services.AddSingleton<MenuRepository>();
+
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("DefaultCORS", builder =>
+                {
+                    // Aperto a tutto!
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
+
+            builder.Services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                              Encoding.ASCII.GetBytes(
+                                builder.Configuration.GetSection("JwtSettings")
+                                                     .Get<JwtSettings>().Key)),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+            builder.Services.AddScoped<IPasswordHasher<UserModel>, PasswordHasher<UserModel>>();
+            builder.Services.AddScoped<JwtAuthenticationService>();
+            builder.Services.AddScoped<UserService>();
 
             var app = builder.Build();
 
@@ -31,9 +75,9 @@ namespace ristorante_backend
             }
 
             app.UseHttpsRedirection();
-
+            app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseCors("DefaultCORS");
 
             app.MapControllers();
 

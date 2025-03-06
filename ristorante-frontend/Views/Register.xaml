@@ -41,8 +41,8 @@
 
             <!-- Email TextBox -->
             <Grid Width="250" Height="35" Margin="10">
-                <Border Background="White" BorderBrush="Transparent" BorderThickness="2" CornerRadius="15">
-                    <TextBox Name="EmailTextBox" Background="Transparent" FontSize="14" GotFocus="EmailTextBox_GotFocus" LostFocus="EmailTextBox_LostFocus"/>
+                <Border Background="White" BorderBrush="{StaticResource SecondaryBrush}" BorderThickness="2" CornerRadius="15" >
+                    <TextBox Name="EmailTextBox" Background="Transparent" FontSize="14" GotFocus="EmailTextBox_GotFocus" LostFocus="EmailTextBox_LostFocus"  VerticalAlignment="Center" TextChanged="EmailTextBox_TextChanged" BorderBrush="Transparent" Margin="10,0,10,0" />
                 </Border>
                 <!-- Placeholder text for Email -->
                 <TextBlock Name="EmailPlaceholder" Text="Email" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" IsHitTestVisible="False" />
@@ -50,8 +50,8 @@
 
             <!-- Password TextBox -->
             <Grid Width="250" Height="35" Margin="10">
-                <Border Background="White" BorderBrush="Transparent" BorderThickness="2" CornerRadius="15">
-                    <PasswordBox Name="PasswordBox" Background="Transparent" FontSize="14" GotFocus="PasswordBox_GotFocus" LostFocus="PasswordBox_LostFocus"/>
+                <Border Background="White" BorderBrush="{StaticResource SecondaryBrush}" BorderThickness="2" CornerRadius="15">
+                    <PasswordBox Name="PasswordBox" Background="Transparent" FontSize="14" GotFocus="PasswordBox_GotFocus" LostFocus="PasswordBox_LostFocus" VerticalAlignment="Center"  BorderBrush="Transparent" Margin="10,0,10,0"/>
                 </Border>
                 <!-- Placeholder text for Password -->
                 <TextBlock Name="PasswordPlaceholder" Text="Password" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" IsHitTestVisible="False" />
@@ -59,8 +59,8 @@
 
             <!-- Confirm Password TextBox -->
             <Grid Width="250" Height="35" Margin="10">
-                <Border Background="White" BorderBrush="Transparent" BorderThickness="2" CornerRadius="15">
-                    <PasswordBox Name="ConfirmPasswordBox" Background="Transparent" FontSize="14" GotFocus="ConfirmPasswordBox_GotFocus" LostFocus="ConfirmPasswordBox_LostFocus"/>
+                <Border Background="White" BorderBrush="{StaticResource SecondaryBrush}" BorderThickness="2" CornerRadius="15">
+                    <PasswordBox Name="ConfirmPasswordBox" Background="Transparent" FontSize="14" GotFocus="ConfirmPasswordBox_GotFocus" LostFocus="ConfirmPasswordBox_LostFocus" VerticalAlignment="Center"  BorderBrush="Transparent" Margin="10,0,10,0"/>
                 </Border>
                 <!-- Placeholder text for Confirm Password -->
                 <TextBlock Name="ConfirmPasswordPlaceholder" Text="Confirm Password" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" IsHitTestVisible="False" />
