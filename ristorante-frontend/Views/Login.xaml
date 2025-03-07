@@ -78,8 +78,8 @@
                 <TextBlock Name="PasswordPlaceholder" Text="Password" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" IsHitTestVisible="False" />
             </Grid>
 
-            <Button Content="Login" Click="LoginButton_Click" Background="{StaticResource SecondaryBrush}" BorderBrush="{StaticResource BackgroundBrush}"
-                    Style="{StaticResource SmoothButtonStyle}"
+            <Button Content="Login" Click="LoginButton_Click"
+                    Style="{StaticResource SmoothRegisterLoginButtonStyle}"
                     Margin="10"/>
 
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15">

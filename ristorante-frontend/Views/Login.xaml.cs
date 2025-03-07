@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ristorante_frontend.Services;
+using ristorante_frontend.ViewModel;
 
 namespace ristorante_frontend.Views
 {
@@ -21,9 +22,12 @@ namespace ristorante_frontend.Views
     /// </summary>
     public partial class Login : Page
     {
+
+
         public Login()
         {
             InitializeComponent();
+
         }
 
 
@@ -71,6 +75,9 @@ namespace ristorante_frontend.Views
                 MessageBox.Show($"Errore login! {tokenApiResult.ErrorMessage}");
                 return;
             }
+
+            
+            MessageBox.Show("Login effettuato con successo!", "Successo", MessageBoxButton.OK, MessageBoxImage.Information);
             this.NavigationService.Navigate(new Uri("Views/UserPage.xaml", UriKind.Relative));
         }
 

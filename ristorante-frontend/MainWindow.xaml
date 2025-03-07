@@ -3,13 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ristorante_frontend"
+        xmlns:local="clr-namespace:ristorante_frontend" xmlns:vm="clr-namespace:ristorante_frontend.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="500" Width="900"
          Background="{StaticResource BackgroundBrush}"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
@@ -71,7 +74,8 @@
                     Grid.Column="12"
                     Grid.ColumnSpan="13"
                     Style="{StaticResource SmoothButtonStyle}"
-                    Click="OnLoginBtnClick">
+                    Click="OnLoginBtnClick"
+                    Visibility="{Binding IsLogged, Converter={StaticResource B2VConverter}}">
                 <!--Foreground="White"
                     FontSize="15"
                     FontWeight="Medium">

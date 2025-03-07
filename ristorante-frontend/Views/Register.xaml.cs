@@ -53,10 +53,7 @@ namespace ristorante_frontend.Views
                 MessageBox.Show($"Errore registrazione! {registerApiResult.ErrorMessage}");
                 return;
             }
-            else
-            {
-                MessageBox.Show($"Registrazione avvenuta con successo!");
-            }
+            
 
             MessageBox.Show("Registrazione completata con successo!", "Successo", MessageBoxButton.OK, MessageBoxImage.Information);
 

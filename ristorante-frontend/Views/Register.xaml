@@ -66,9 +66,10 @@
                 <TextBlock Name="ConfirmPasswordPlaceholder" Text="Confirm Password" Foreground="Gray" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" IsHitTestVisible="False" />
             </Grid>
 
-            <Button Content="Register" Click="RegisterButton_Click" Background="{StaticResource SecondaryBrush}" BorderBrush="{StaticResource BackgroundBrush}"
-                    Style="{StaticResource SmoothButtonStyle}"
+            <Button Content="Register" Click="RegisterButton_Click"
+                    Style="{StaticResource SmoothRegisterLoginButtonStyle}"
                     Margin="0,15,0,10"/>
+            
 
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="15">
                 <Hyperlink Click="NavigateToLoginPage"
