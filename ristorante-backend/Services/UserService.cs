@@ -26,6 +26,7 @@ namespace ristorante_backend.Services
                 SqlDataReader reader = await commandRicerca.ExecuteReaderAsync();
                 if (await reader.ReadAsync())
                     throw (new Exception(message: "Esiste già un User registrato con l' email inserita"));
+                await reader.CloseAsync();
             }
 
          
@@ -72,7 +73,7 @@ namespace ristorante_backend.Services
                 SqlCommand command = new SqlCommand(
                 "SELECT r.Name " +
                 "FROM Roles r " +
-                "INNER JOIN UserRole ur ON r.ID_User = ur.ID_User " +
+                "LEFT JOIN UserRole ur ON r.ID_Role = ur.ID_Role " + //ERA INNER JOIN
                 "WHERE ur.ID_User = @ID_User", connection);
                 command.Parameters.AddWithValue("@ID_User", UserId);
                 var reader = await command.ExecuteReaderAsync();

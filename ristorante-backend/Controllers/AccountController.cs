@@ -5,7 +5,7 @@ using ristorante_backend.Services;
 
 namespace ristorante_backend.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {

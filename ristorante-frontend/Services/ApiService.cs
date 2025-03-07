@@ -13,7 +13,7 @@ namespace ristorante_frontend.Services
 {
     public class ApiService
     {
-        public const string API_URL = "https://localhost:7190";
+        public const string API_URL = "https://localhost:7205";
         public static string Email { get; set; }
         public static string Password { get; set; }
 
