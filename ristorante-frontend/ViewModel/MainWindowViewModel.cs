@@ -40,16 +40,16 @@ namespace ristorante_frontend.ViewModel
         }
         private async Task Initialize()
         {
-            var tokenApiResult = await ApiService.GetJwtToken();
-            if (tokenApiResult != null && tokenApiResult.IsSuccess)
-            {
-                IsLogged = true;
-            }
-            else
-            {
-                IsLogged = false;
-            }
-            OnPropertyChanged(nameof(IsLogged));
+            //var tokenApiResult = await ApiService.GetJwtToken();
+            //if (tokenApiResult != null && tokenApiResult.IsSuccess)
+            //{
+            //    IsLogged = true;
+            //}
+            //else
+            //{
+            //    IsLogged = false;
+            //}
+            //OnPropertyChanged(nameof(IsLogged));
 
             
         }
