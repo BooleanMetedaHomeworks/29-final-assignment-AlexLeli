@@ -10,9 +10,9 @@
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
-    <!--<Window.DataContext>
+    <Window.DataContext>
         <vm:MainWindowViewModel/>
-    </Window.DataContext>!-->
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"></RowDefinition>
@@ -76,6 +76,8 @@
                     Style="{StaticResource SmoothButtonStyle}"
                     Click="OnLoginBtnClick"
                     Visibility="{Binding IsLogged, Converter={StaticResource B2VConverter}}">
+                
+            
                 <!--Foreground="White"
                     FontSize="15"
                     FontWeight="Medium">
@@ -111,6 +113,12 @@
                     </ControlTemplate>
                 </Button.Template>-->
             </Button>
+            <Button Content="Logout"
+                     Grid.Column="12"
+                     Grid.ColumnSpan="13"
+                     Style="{StaticResource SmoothButtonStyle}"
+                     Click="OnLogoutBtnClick"
+                     Visibility="{Binding IsNotLogged, Converter={StaticResource B2VConverter}}"/> 
 
         </Grid>
 
@@ -170,7 +178,7 @@
                 <Button Content="Start"
                         Margin="0,0,15,0"
                         Style="{StaticResource SmoothButtonStyle}"
-                        Click="OnUserBtnClick">
+                        Click="OnStartBtnClick">
                         <!--Foreground="White"
                         FontSize="15"
                         FontWeight="Medium"
@@ -212,7 +220,8 @@
 
                 <Button Content="Register"
                         Style="{StaticResource SmoothButtonStyle}"
-                        Click="OnRegisterBtnClick">
+                        Click="OnRegisterBtnClick"
+                        Visibility="{Binding IsLogged, Converter={StaticResource B2VConverter}}">
                     <!--Foreground="White"
                         FontSize="15"
                         FontWeight="Medium">        

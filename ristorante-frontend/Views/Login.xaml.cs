@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Extensions.Logging;
 using ristorante_frontend.Services;
 using ristorante_frontend.ViewModel;
 
@@ -27,7 +28,7 @@ namespace ristorante_frontend.Views
         public Login()
         {
             InitializeComponent();
-
+            //MainWindowViewModel viewModel = new MainWindowViewModel();
         }
 
 
@@ -75,10 +76,22 @@ namespace ristorante_frontend.Views
                 MessageBox.Show($"Errore login! {tokenApiResult.ErrorMessage}");
                 return;
             }
-
-            
+            MainWindowViewModel.Instance.Jwt = tokenApiResult.Data;
+            MainWindowViewModel.Instance.IsLogged = true;
+            MainWindowViewModel.Instance.IsNotLogged = false;
             MessageBox.Show("Login effettuato con successo!", "Successo", MessageBoxButton.OK, MessageBoxImage.Information);
-            this.NavigationService.Navigate(new Uri("Views/UserPage.xaml", UriKind.Relative));
+            
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+
+            Window currentWindow = Window.GetWindow(this);
+            if (currentWindow != null)
+            {
+                currentWindow.Close();
+            }
+
+            Console.WriteLine($"IsLogged: {MainWindowViewModel.Instance.IsLogged}");
+
         }
 
             // Gestione del click sul link per andare alla pagina di registrazione
@@ -86,6 +99,8 @@ namespace ristorante_frontend.Views
             {
                 this.NavigationService.Navigate(new Uri("Views/Register.xaml", UriKind.Relative));
             }
+
+
         }
     }
 
