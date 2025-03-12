@@ -58,7 +58,7 @@ namespace ristorante_frontend
                         return;
                     }
                 }
-                //this.MainFrame.NavigationService.Navigate(new Uri("Views/User.xaml", UriKind.Relative));
+                this.MainFrame.NavigationService.Navigate(new Uri("Views/User.xaml", UriKind.Relative));
             }
             
         }
